@@ -26,7 +26,7 @@ async function supabaseFetch<T>(path: string): Promise<T> {
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   return supabaseFetch(
-    'blog_posts?select=id,slug,title,excerpt,published_date&status=eq.published&order=published_date.desc'
+    'blog_posts?select=id,slug,title,excerpt,published_date,image_url&status=eq.published&order=published_date.desc'
   )
 }
 

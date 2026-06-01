@@ -63,6 +63,10 @@ export default async function BlogPost(
 
       <h1 className="article-title">{post.title}</h1>
 
+      {post.image_url && (
+        <img src={post.image_url} alt="" className="article-hero-img" />
+      )}
+
       <div
         className="article-body"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
