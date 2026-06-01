@@ -1,9 +1,12 @@
 import { getPost, getAllPosts } from '@/lib/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { marked } from 'marked'
 
 export const revalidate = 3600
 export const dynamicParams = true
+
+marked.use({ gfm: true, breaks: false })
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()
@@ -34,7 +37,9 @@ export async function generateMetadata(
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  })
 }
 
 export default async function BlogPost(
@@ -44,20 +49,24 @@ export default async function BlogPost(
   const post = await getPost(slug)
   if (!post) notFound()
 
-  const paragraphs = post.content.split('\n').filter(p => p.trim())
+  const htmlContent = await marked(post.content)
 
   return (
-    <article>
-      <header className="article-header">
-        <h1 className="article-title">{post.title}</h1>
-        <p className="article-meta">
-          <span>{formatDate(post.published_date)}</span> &nbsp;·&nbsp; Simeon Herbert
-        </p>
-      </header>
+    <div className="article-wrap">
+      <a href="/" className="back-link">← Back to blog</a>
 
-      <div className="article-body">
-        {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
-      </div>
+      <p className="article-meta">
+        <span className="article-meta-date">{formatDate(post.published_date)}</span>
+        <span className="article-meta-sep">·</span>
+        <span>Simeon Herbert</span>
+      </p>
+
+      <h1 className="article-title">{post.title}</h1>
+
+      <div
+        className="article-body"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
 
       <hr className="article-divider" />
 
@@ -67,10 +76,10 @@ export default async function BlogPost(
           Agile delivery coach and consultant based in London. Helping teams flow better and
           leaders understand what&apos;s actually happening.
         </p>
-        <a href="https://simeonherbert.com" className="author-link">Visit simeonherbert.com</a>
+        <a href="https://simeonherbert.com/contact" className="author-cta">
+          Work with me →
+        </a>
       </div>
-
-      <a href="/" className="back-link">← All posts</a>
-    </article>
+    </div>
   )
 }

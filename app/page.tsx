@@ -5,20 +5,22 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Blog | Simeon Herbert — Agile Delivery Consultant London',
-  description: 'Practical thinking on agile delivery, team health, flow metrics, and leadership from Simeon Herbert.',
+  description: 'Practical thinking on agile delivery, team health, and flow metrics from Simeon Herbert.',
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  })
 }
 
 export default async function BlogIndex() {
   const posts = await getAllPosts()
 
   return (
-    <>
+    <div className="blog-index">
+      <p className="page-eyebrow">Simeon Herbert</p>
       <h1 className="page-title">Blog</h1>
-      <p className="page-subtitle">Practical thinking on agile delivery, team health, and flow.</p>
       <ul className="post-list">
         {posts.map(post => (
           <li key={post.id} className="post-item">
@@ -30,6 +32,6 @@ export default async function BlogIndex() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
