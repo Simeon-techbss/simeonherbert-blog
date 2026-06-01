@@ -10,9 +10,10 @@ export const metadata: Metadata = {
 const NAV = [
   { label: 'Home', href: 'https://simeonherbert.com/' },
   { label: 'About', href: 'https://simeonherbert.com/about' },
-  { label: 'Portfolio', href: 'https://simeonherbert.com/portfolio' },
+  { label: 'AI Portfolio', href: 'https://simeonherbert.com/portfolio' },
   { label: 'Testimonials', href: 'https://simeonherbert.com/testimonials' },
-  { label: 'Blog', href: 'https://simeonherbert.com/blog' },
+  { label: 'Blog', href: 'https://blog.simeonherbert.com' },
+  { label: 'Evidence Graph', href: 'https://simeonherbert.com/evidence-graph' },
   { label: 'Contact', href: 'https://simeonherbert.com/contact' },
 ]
 
