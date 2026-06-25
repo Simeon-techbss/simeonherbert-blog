@@ -21,7 +21,9 @@ export async function generateMetadata(
   if (!post) return {}
   return {
     title: `${post.title} | Simeon Herbert`,
-    description: post.excerpt,
+    description: (post.excerpt && post.excerpt.length >= 100)
+      ? post.excerpt
+      : (post.excerpt || post.content || '').replace(/‌/g, '').slice(0, 200),
     openGraph: {
       title: post.title,
       description: post.excerpt,
