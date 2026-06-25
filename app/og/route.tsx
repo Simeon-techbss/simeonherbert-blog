@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const title = searchParams.get('title') || 'Practical thinking on agile delivery'
 
-  const fontSize = title.length > 80 ? 44 : title.length > 50 ? 52 : 60
+  const fontSize = title.length > 80 ? 46 : title.length > 50 ? 54 : 62
 
   return new ImageResponse(
     (
@@ -17,43 +17,61 @@ export async function GET(request: Request) {
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: '#131009',
-          padding: '64px 72px',
         }}
       >
-        {/* Gold rule */}
-        <div style={{ width: '72px', height: '3px', backgroundColor: '#C9A84C', marginBottom: '48px', display: 'flex' }} />
-
-        {/* Byline */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
-          <span style={{ color: '#C9A84C', fontSize: '22px', fontFamily: 'serif', fontWeight: 'bold' }}>
-            Simeon Herbert
+        {/* Gold header band */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: '#C9A84C',
+            padding: '0 56px',
+            height: '100px',
+            flexShrink: 0,
+          }}
+        >
+          <span style={{ color: '#131009', fontSize: '30px', fontWeight: 'bold', fontFamily: 'serif', letterSpacing: '1px' }}>
+            SIMEON HERBERT
           </span>
-          <span style={{ color: '#3A3020', fontSize: '22px' }}>·</span>
-          <span style={{ color: '#5A5040', fontSize: '20px', fontFamily: 'serif' }}>
+          <span style={{ color: '#8A6820', fontSize: '24px', margin: '0 16px' }}>·</span>
+          <span style={{ color: '#6A5010', fontSize: '22px', fontFamily: 'serif' }}>
             blog.simeonherbert.com
           </span>
         </div>
 
-        {/* Title */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+        {/* Title area */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            padding: '40px 56px',
+          }}
+        >
           <div
             style={{
               color: '#F5F1EA',
               fontSize: `${fontSize}px`,
               fontFamily: 'serif',
               fontWeight: 'bold',
-              lineHeight: 1.25,
-              letterSpacing: '-0.5px',
+              lineHeight: 1.2,
             }}
           >
             {title}
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '32px', height: '2px', backgroundColor: '#3A3020', display: 'flex' }} />
-          <span style={{ color: '#4A4030', fontSize: '18px', fontFamily: 'serif' }}>
+        {/* Footer rule */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 56px 36px',
+            gap: '16px',
+          }}
+        >
+          <div style={{ width: '40px', height: '2px', backgroundColor: '#C9A84C', display: 'flex' }} />
+          <span style={{ color: '#5A5040', fontSize: '20px', fontFamily: 'serif' }}>
             Agile delivery · 35 years · No nonsense.
           </span>
         </div>
