@@ -29,6 +29,16 @@ export async function generateMetadata(
       publishedTime: post.published_date,
       authors: ['Simeon Herbert'],
       url: `https://blog.simeonherbert.com/${post.slug}`,
+      images: [{
+        url: `/og?title=${encodeURIComponent(post.title)}`,
+        width: 1200,
+        height: 630,
+        alt: post.title,
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [`/og?title=${encodeURIComponent(post.title)}`],
     },
     alternates: {
       canonical: `https://blog.simeonherbert.com/${post.slug}`,
@@ -49,7 +59,10 @@ export default async function BlogPost(
   const post = await getPost(slug)
   if (!post) notFound()
 
-  const htmlContent = await marked(post.content)
+  const cleanedContent = post.content
+    .replace(/‌/g, '')
+    .replace(/(?<!\(|")\b([a-z][a-z0-9-]*\.[a-z]{2,}\/\S+)/gi, (url) => `[${url}](https://${url})`)
+  const htmlContent = await marked(cleanedContent)
 
   return (
     <div className="article-wrap">

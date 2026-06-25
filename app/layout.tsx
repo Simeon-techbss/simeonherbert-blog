@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: 'Blog | Simeon Herbert',
   description: 'Practical thinking on agile delivery, team health, and flow from Simeon Herbert — Agile Delivery Consultant, London.',
   metadataBase: new URL('https://blog.simeonherbert.com'),
+  openGraph: {
+    images: [{ url: '/og', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/og'],
+  },
 }
 
 const NAV = [
