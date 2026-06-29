@@ -1,4 +1,4 @@
-import { getPost, getAllPosts } from '@/lib/blog'
+import { getPost, getAllPosts, checkPostExists } from '@/lib/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { marked } from 'marked'
@@ -57,7 +57,28 @@ export default async function BlogPost(
 ) {
   const { slug } = await params
   const post = await getPost(slug)
-  if (!post) notFound()
+
+  if (!post) {
+    const exists = await checkPostExists(slug)
+    if (exists) {
+      return (
+        <div className="article-wrap">
+          <a href="/" className="back-link">← Back to blog</a>
+          <p className="article-meta" style={{ marginTop: '2rem' }}>
+            <span className="article-meta-date">Coming soon</span>
+          </p>
+          <h1 className="article-title">We&apos;re just applying the finishing touches</h1>
+          <p style={{ color: '#64748b', marginTop: '1rem', lineHeight: '1.7' }}>
+            This post is nearly ready. Check back soon — it won&apos;t be long.
+          </p>
+          <a href="/" className="back-link" style={{ display: 'inline-block', marginTop: '2rem' }}>
+            ← See all posts
+          </a>
+        </div>
+      )
+    }
+    notFound()
+  }
 
   const cleanedContent = post.content
     .replace(/‌/g, '')
