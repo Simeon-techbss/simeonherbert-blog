@@ -36,3 +36,11 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   )
   return posts[0] ?? null
 }
+
+// Returns true if the slug exists in any status (draft, scheduled, etc.)
+export async function checkPostExists(slug: string): Promise<boolean> {
+  const posts = await supabaseFetch<{ id: string }[]>(
+    `blog_posts?select=id&slug=eq.${encodeURIComponent(slug)}&limit=1`
+  )
+  return posts.length > 0
+}
