@@ -1,0 +1,655 @@
+<title>September Blog Drafts</title>
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --surface-border: #e2e5ea;
+    --ink: #1b2430;
+    --ink-soft: #3a4250;
+    --muted: #6b7280;
+    --rule: #dde1e7;
+    --accent: #a6791f;
+    --accent-soft: #f3ead4;
+    --approved: #3f7d58;
+    --approved-soft: #e6f0e9;
+    --review: #b3671a;
+    --review-soft: #faeddd;
+    --focus: #7a5b12;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151b;
+      --surface: #1a1e26;
+      --surface-border: #2a2f3a;
+      --ink: #e9ebef;
+      --ink-soft: #c7cbd3;
+      --muted: #949aa4;
+      --rule: #2c313c;
+      --accent: #d9b45a;
+      --accent-soft: #332a15;
+      --approved: #7cc99a;
+      --approved-soft: #17261d;
+      --review: #e3a15f;
+      --review-soft: #2c2015;
+      --focus: #e9c479;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #12151b;
+    --surface: #1a1e26;
+    --surface-border: #2a2f3a;
+    --ink: #e9ebef;
+    --ink-soft: #c7cbd3;
+    --muted: #949aa4;
+    --rule: #2c313c;
+    --accent: #d9b45a;
+    --accent-soft: #332a15;
+    --approved: #7cc99a;
+    --approved-soft: #17261d;
+    --review: #e3a15f;
+    --review-soft: #2c2015;
+    --focus: #e9c479;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2rem, 4.5vw, 2.7rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+
+  .theme-line {
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 28px;
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .status-count {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .status-count strong {
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex: none;
+  }
+  .dot.approved { background: var(--approved); }
+  .dot.review { background: var(--review); }
+
+  /* ---------- quick jump ---------- */
+
+  nav.toc {
+    margin: 28px 0 44px;
+    padding: 4px 0 0;
+  }
+
+  nav.toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 24px;
+  }
+
+  nav.toc li {
+    font-size: 0.94rem;
+    border-bottom: 1px dotted var(--rule);
+    padding: 7px 0;
+  }
+
+  nav.toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  nav.toc a:hover, nav.toc a:focus-visible {
+    color: var(--accent);
+  }
+
+  nav.toc .toc-num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    color: var(--muted);
+    font-size: 0.82rem;
+    flex: none;
+  }
+
+  nav.toc .toc-title {
+    flex: 1;
+  }
+
+  nav.toc .toc-status {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex: none;
+  }
+  nav.toc .toc-status.approved { color: var(--approved); }
+  nav.toc .toc-status.review { color: var(--review); }
+
+  /* ---------- posts ---------- */
+
+  article.post {
+    padding: 40px 0 44px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 24px;
+  }
+
+  article.post:first-of-type {
+    border-top: none;
+    padding-top: 8px;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .post-meta-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .slot-num {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+  .pill.approved { background: var(--approved-soft); color: var(--approved); }
+  .pill.review { background: var(--review-soft); color: var(--review); }
+
+  .copy-btn {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { border-color: var(--accent); }
+  .copy-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .copy-btn.copied { background: var(--approved-soft); color: var(--approved); }
+
+  h2.post-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.35rem, 3vw, 1.65rem);
+    line-height: 1.25;
+    text-wrap: balance;
+    margin: 0 0 18px;
+    color: var(--ink);
+  }
+
+  .excerpt-box {
+    max-width: 62ch;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 0 0 24px;
+  }
+
+  .excerpt-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .excerpt-label span {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .excerpt-box p {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .post-body p {
+    max-width: 62ch;
+    font-size: 1.06rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+
+  .post-body p:first-of-type {
+    font-size: 1.16rem;
+    color: var(--ink);
+  }
+
+  .closer {
+    max-width: 62ch;
+    margin: 28px 0 0;
+    padding: 4px 0 4px 18px;
+    border-left: 3px solid var(--accent);
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  footer.note {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 560px) {
+    nav.toc ol { grid-template-columns: 1fr; }
+    .page { padding: 40px 18px 72px; }
+    .post-meta { flex-wrap: wrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+
+  html { scroll-behavior: smooth; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<div class="page">
+
+  <p class="eyebrow">Working draft &middot; blog.simeonherbert.com</p>
+  <h1>September blog posts</h1>
+  <p class="theme-line">Theme: small changes. July looked at where to look first, August was about not doing transformation theatre — September is the small things that actually move a team. 8 topics for 8 Tuesday/Thursday slots, plus a month-end wrap-up.</p>
+
+  <div class="status-bar">
+    <div class="status-count"><span class="dot approved"></span><strong>5</strong> approved</div>
+    <div class="status-count"><span class="dot review"></span><strong>4</strong> need review</div>
+    <div class="status-count"><strong>9 / 9</strong> drafted</div>
+  </div>
+
+  <nav class="toc" aria-label="Post list">
+    <ol>
+      <li><a href="#post-1"><span class="toc-num">01</span><span class="toc-title">Board shows flow, right to left</span><span class="toc-status approved">OK</span></a></li>
+      <li><a href="#post-2"><span class="toc-num">02</span><span class="toc-title">Start with the end in mind</span><span class="toc-status review">Review</span></a></li>
+      <li><a href="#post-3"><span class="toc-num">03</span><span class="toc-title">Write cards informatively</span><span class="toc-status approved">OK</span></a></li>
+      <li><a href="#post-4"><span class="toc-num">04</span><span class="toc-title">Smelly tickets</span><span class="toc-status approved">OK</span></a></li>
+      <li><a href="#post-5"><span class="toc-num">05</span><span class="toc-title">Real communication, pair working</span><span class="toc-status approved">OK</span></a></li>
+      <li><a href="#post-6"><span class="toc-num">06</span><span class="toc-title">Management by apathy</span><span class="toc-status approved">OK</span></a></li>
+      <li><a href="#post-7"><span class="toc-num">07</span><span class="toc-title">Better this week than last</span><span class="toc-status review">Review</span></a></li>
+      <li><a href="#post-8"><span class="toc-num">08</span><span class="toc-title">Wall of Done</span><span class="toc-status review">Review</span></a></li>
+      <li><a href="#post-9"><span class="toc-num">09</span><span class="toc-title">This month, the small things</span><span class="toc-status review">Review</span></a></li>
+    </ol>
+  </nav>
+
+  <article class="post" id="post-1">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">01 / 09</span><span class="pill approved">Approved &middot; one fix</span></div>
+      <button class="copy-btn" data-copy="content-1">Copy content</button>
+    </div>
+    <h2 class="post-title">Board shows flow, right to left</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-1">Copy excerpt</button></div>
+      <p>I don't allow tickets to move backwards. If something's stuck, I block it and start a new one — the two only merge back together once the new ticket catches up to where the old one stalled. Most boards can't tell the difference between one day stuck and three weeks stuck. Yours needs to.</p>
+    </div>
+    <div class="post-body">
+      <p>I don't allow tickets to move backwards.</p>
+      <p>If a ticket's stuck — someone finds a problem in testing, a dependency wasn't ready, whatever it is — I don't send it back a column. I block it, then start a new one. The blocked ticket doesn't move. It sits exactly where it stalled until the new ticket catches up to that same point — then the two merge back into one, and move on together. Tickets go one direction. Left to right. Never the other way.</p>
+      <p>That's only possible if your board actually shows the flow of work. Most boards don't. "To do, doing, done" tells you almost nothing — work sits in "doing" whether it's one day in or three weeks stuck, and nobody can tell the difference from the board alone.</p>
+      <p>What you actually need is your real flow, visible. Something's been looked at and decided on — that's a column. It's next up — that's a column. Maybe it goes through a three amigos check before a developer even starts. Once the developer's finished coding, that needs its own column too — not because coding and testing are the same job, but because there's always a lag between one finishing and the next starting. That lag is a queue. If you don't show it, you can't see it, and if you can't see it, you can't ask why it's sitting there.</p>
+      <p>Here's what that changes about your stand-up. Most stand-ups start on the left — what's new, what's just been picked up. Start on the right instead. Look at what's closest to done first, and ask: can I move this any further right today? Then work backwards, one column at a time, asking the same question. You're reading the board right to left. You're still only ever moving tickets left to right.</p>
+      <p>That's the whole discipline. Not "what did you do yesterday." Just: what's stopping this ticket, sitting right there, from moving one column closer to done?</p>
+    </div>
+    <p class="closer">Next stand-up, start on the right. What's the closest-to-done thing on your board, and what's actually stopping it moving today?</p>
+  </article>
+
+  <article class="post" id="post-2">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">02 / 09</span><span class="pill review">Needs review</span></div>
+      <button class="copy-btn" data-copy="content-2">Copy content</button>
+    </div>
+    <h2 class="post-title">Start with the end in mind</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-2">Copy excerpt</button></div>
+      <p>"That's not what I asked for." I hear that most after work that took two weeks, not two minutes — nobody ever agreed what "finished" looked like before it started. Start with the end in mind, out loud, before anyone opens a laptop. What does this need to look like when it's done?</p>
+    </div>
+    <div class="post-body">
+      <p>"That's not what I asked for."</p>
+      <p>I hear that most after work that took two weeks, not two minutes. The ticket looked fine when it was written. Nobody thought to ask what "finished" actually meant until the finished thing showed up, and it wasn't that.</p>
+      <p>I always start with the end in mind — not as a slogan, as a real question, asked before anyone opens a laptop. What does good look like here? Where do we actually need to get to? And when we get there, how will we know, for certain, that it's the place we were supposed to arrive?</p>
+      <p>None of that works if it only lives in one person's head. Everyone building it needs to agree the same answer — what good looks like, how you'll get there, how you'll test it once you think you have. Skip that conversation, and you're not delivering towards anything. You're building something and hoping it happens to match whatever picture somebody was carrying around.</p>
+      <p>That conversation has a name — three amigos. Strip away the jargon and it's just three people: the one who wants it, the one who can provide it, and the one who will validate it, agreeing out loud, before anyone starts, on what "good" actually looks like. Three points of view catch what one person alone never will.</p>
+      <p>Get that agreed up front and the whole piece of work changes shape. You're not writing a story and hoping it lands somewhere useful — you're writing towards a target everyone can already see. That's what done done actually means. Not "we built it." "We know it's good, because we agreed what good looked like before we ever picked up a pen."</p>
+    </div>
+    <p class="closer">Before your next piece of work starts, ask the question out loud, in the room, where everyone can hear it: what does this need to look like when it's done?</p>
+  </article>
+
+  <article class="post" id="post-3">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">03 / 09</span><span class="pill approved">Approved</span></div>
+      <button class="copy-btn" data-copy="content-3">Copy content</button>
+    </div>
+    <h2 class="post-title">Write cards and stories informatively</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-3">Copy excerpt</button></div>
+      <p>"Upgrade the import feature." That was the whole ticket — no context, no reason, nothing to talk about. A card isn't a spec, but it needs to be enough of an invitation that someone can ask a real question back. What's the last card you wrote that someone else would need to ask you what it even meant?</p>
+    </div>
+    <div class="post-body">
+      <p>"Upgrade the import feature."</p>
+      <p>That was the whole ticket. No context, no reason, nothing to talk about.</p>
+      <p>A card isn't meant to be war and peace. It's an invitation to a conversation, not a spec. But "upgrade the import feature" isn't an invitation to anything — there's nothing there to respond to.</p>
+      <p>Here's what a card actually needs: enough for someone to read it and ask real questions back. What's the plan here? What's the right UI? Does the back end need to handle this fast, or is a batch job fine? Does this need to survive load, or is it low-stakes? None of that is possible from a title alone.</p>
+      <p>Start with why. Every story has a point, and if the card doesn't say what it is, the conversation starts from zero every single time. The canonical format — as a [someone], I want [something], in order to [outcome] — isn't sacred, and plenty of good technical teams skip it entirely. But it's a genuinely useful crutch when you're stuck, because it forces you to write the why down, not just the what.</p>
+      <p>I'm not asking for a specification written up front. I'm asking for enough that when I pick up a ticket at stand-up, I can actually ask "where are we with this, can we get it over the line" — instead of reading three words and having no idea what I'm even looking at.</p>
+    </div>
+    <p class="closer">What's the last card you wrote that someone else would need to ask you what it even meant?</p>
+  </article>
+
+  <article class="post" id="post-4">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">04 / 09</span><span class="pill approved">Approved</span></div>
+      <button class="copy-btn" data-copy="content-4">Copy content</button>
+    </div>
+    <h2 class="post-title">Smelly tickets</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-4">Copy excerpt</button></div>
+      <p>"Why's that ticket still there?" "We're waiting on something." "Waiting on what?" Silence. I call these smelly tickets — they sit there long enough to throw off every metric you've got, and the smell is always the same: nobody's asking why anymore.</p>
+    </div>
+    <div class="post-body">
+      <p>"Why's that ticket still there?"</p>
+      <p>"We're waiting on something."</p>
+      <p>"Waiting on what?"</p>
+      <p>Silence. Nobody in the room actually knows. There's supposed to be an owner. Maybe there is, and they've quietly decided there's nothing they can do. Maybe there isn't, and everyone assumed it was someone else's.</p>
+      <p>I call these smelly tickets. They sit there long enough to throw off every metric you've got, and the smell is always the same: nobody's asking why anymore.</p>
+      <p>Some of them hide in plain sight. Jira will show you little dots counting the days something's sat in the same column, if you've turned that on. Flow Lens will flag it in the cycle time — blocked, or just late. But plenty of smelly tickets aren't even marked as blocked. They just sit there, unchallenged, because nobody's looking at them regularly enough to notice the smell.</p>
+      <p>Here's the question that actually moves them. Not "why can't we finish this" — "what could we do?" Could you split it in half, park the hard part back in the backlog for when it's actually playable, and finish and demonstrate the half that's real? Half the time, a smelly ticket is telling you the story was too big to begin with, and splitting it is the whole fix.</p>
+      <p>The ticket isn't the problem. It's a symptom. What you're actually looking for is one honest answer to: what's possible right now, that isn't happening?</p>
+    </div>
+    <p class="closer">Is there a ticket on your board that's been sitting there so long nobody's asking why anymore? Go and ask.</p>
+  </article>
+
+  <article class="post" id="post-5">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">05 / 09</span><span class="pill approved">Approved</span></div>
+      <button class="copy-btn" data-copy="content-5">Copy content</button>
+    </div>
+    <h2 class="post-title">Real communication in the room, pair working</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-5">Copy excerpt</button></div>
+      <p>"We don't like arguments," people tell me. I love arguments — they mean someone cares enough to say what they actually think, out loud, in the room. If there's genuinely nobody free to pair with, talk to a rubber duck. I mean that literally.</p>
+    </div>
+    <div class="post-body">
+      <p>"We don't like arguments," people tell me.</p>
+      <p>I love arguments. An argument means someone cares enough to say what they actually think, out loud, in the room. If you won't argue about something you believe is true, that tells me one of three things: you don't care, you've lost your passion, or someone's beaten it out of you. None of those are good.</p>
+      <p>That's what I mean by real communication in the room. Not politeness. Not everyone nodding along. People actually challenging each other — "actually, buddy, I don't think you're right, can we talk about that?" Not because I'm certain I'm correct. Just because I want to talk it through, out loud, with someone who might tell me I'm wrong.</p>
+      <p>Pair working is the same thing in miniature. "This is what I did, what do you think?" That's it. That's the whole discipline. And if there's genuinely nobody free to pair with, talk to a rubber duck. I mean that literally — sit a rubber duck on your desk and explain your work to it out loud. It won't answer you (usually). What it does is force you to say the words instead of just thinking them, and most of us are embarrassed enough by talking out loud that we skip straight to typing. Say it anyway. You become your own rubber duck the moment you hear yourself explain something badly.</p>
+      <p>People are pairing with AI a lot now. Fine for the technical side. But if you're writing something and want a real feel for whether it lands, a conversation with a person beats it every time. AI won't argue with you the way a colleague who actually cares will.</p>
+      <p>What I want in the room is noise. Bubbling, heated, "hang on, I don't think that's right" conversation — because that's what people sound like when they still care about the answer.</p>
+    </div>
+    <p class="closer">What's the last thing at work you avoided arguing about, even though you didn't actually agree?</p>
+  </article>
+
+  <article class="post" id="post-6">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">06 / 09</span><span class="pill approved">Approved</span></div>
+      <button class="copy-btn" data-copy="content-6">Copy content</button>
+    </div>
+    <h2 class="post-title">Management by apathy, proceed until apprehended</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-6">Copy excerpt</button></div>
+      <p>"It's not my job." That's usually where it starts — something's stuck, nobody's responsible, and the easiest thing in the world is to leave it exactly where it is. I call that management by apathy. The opposite of it is my favourite word: deliberate.</p>
+    </div>
+    <div class="post-body">
+      <p>"It's not my job."</p>
+      <p>That's usually where it starts. Something's stuck, nobody's clearly responsible for it, and the easiest thing in the world is to leave it exactly where it is.</p>
+      <p>I call that management by apathy, and I don't mean it unkindly. What I mean is the opposite of my favourite word: deliberate. Apathy says "not my job, not my problem, I'll leave it." Deliberate says "it might not be my job — but it's sitting there now, so I'm going to go and find out what it actually is."</p>
+      <p>No decision is the worst decision you can make. Sitting there, unsure, hoping the right answer turns up on its own — it won't. It's not going to jump out and catch you. It just sits there. That's exactly how a smelly ticket gets made.</p>
+      <p>So how do you actually make a deliberate decision when you're not sure? You don't start with the decision. You start with your assumptions. Write down what you think is true. Then make the call based on that. If the assumption's wrong — and it might be — you've got something to talk about. You can say "here's what I thought was true, here's the decision I made because of it." When someone tells you you're wrong, you get a much better question out of it: what didn't I know? What communication never reached me?</p>
+      <p>That's the real value of leading with assumptions instead of decisions. Walk around a team with a decision and ask "was this right?" and most people freeze — "I don't know, why would I have made that call?" Walk around with an assumption instead — "I think this is true" — and people relax. "Yeah, that's right." Or: "no, actually, it's something else." An assumption invites correction. A decision invites defence. An assumption lets people be curious about whether it's true. A decision forces them to defend whether it was right.</p>
+      <p>That's what deliberate really means. Not being certain. Being willing to say what you think is true, out loud, so someone can tell you if you're wrong before it costs you anything.</p>
+    </div>
+    <p class="closer">What's something you're currently assuming is true at work — that you've never actually said out loud to check?</p>
+  </article>
+
+  <article class="post" id="post-7">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">07 / 09</span><span class="pill review">Needs review</span></div>
+      <button class="copy-btn" data-copy="content-7">Copy content</button>
+    </div>
+    <h2 class="post-title">Better this week than last</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-7">Copy excerpt</button></div>
+      <p>"Are we getting better?" Ask a delivery lead that and watch what happens — story points, a velocity chart, a number invented afterwards to explain itself either way. Velocity lies, because story size moves around every week. What's the one number your team already tracks that you've never once compared to last week's?</p>
+    </div>
+    <div class="post-body">
+      <p>"Are we getting better?"</p>
+      <p>Ask a delivery lead that question and watch what happens. Story points. A velocity chart. A number that went up, or a number that went down, and a story invented afterwards to explain it either way.</p>
+      <p>Velocity lies. Not on purpose — it lies because story size moves around every single week. One team writes big stories in a slow week and small stories in a fast one, and the chart says the opposite of what actually happened. You cannot compare eight points last week to eight points this week and learn anything at all.</p>
+      <p>So what number would actually tell you the truth?</p>
+      <p>Not the number itself. The movement. Something that means nothing sitting still and everything moving. "We finished twelve things" is not honest on its own — you have no idea if twelve is good. "We finished twelve things, and it took less time than the twelve things we finished last week" — that is honest. That is the whole difference.</p>
+      <p>Cycle time gets you closer than velocity ever will, because it measures the thing you actually care about — how long something takes from start to finish — not a size someone guessed at in planning. Track the median cycle time this week. Track it again next week. You are not asking "is twelve days good." You are asking "is twelve days better than fourteen." That is a question with a real answer.</p>
+      <p>I am not asking you to build a dashboard. I've already built one — flow-lens.co.uk turns a Kanban export into the cycle time trend without you touching a spreadsheet. What I am asking you to do is decide what's important to you — which numbers are actually worth watching — then ignore what any single one of them means in isolation, and only ever ask whether it moved the right way since last time you looked.</p>
+    </div>
+    <p class="closer">What's the one number your team already tracks that you have never once compared to last week's?</p>
+  </article>
+
+  <article class="post" id="post-8">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">08 / 09</span><span class="pill review">Needs review</span></div>
+      <button class="copy-btn" data-copy="content-8">Copy content</button>
+    </div>
+    <h2 class="post-title">Wall of Done</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-8">Copy excerpt</button></div>
+      <p>Ask a team what they achieved this month and watch the room go quiet — not because nothing happened, but because nobody wrote any of it down. I get every team I work with to keep a wall of done: a running, visible record of what actually shipped. What did your team ship this month that nobody's written down anywhere?</p>
+    </div>
+    <div class="post-body">
+      <p>Ask a team what they achieved this month and watch the room go quiet.</p>
+      <p>Not because nothing happened. Because nobody wrote any of it down. Weeks of real work, shipped and working, and not one person in the room can name three things without stopping to think. You lose more than the memory — you lose the ability to celebrate it, and to show it to anyone outside your own team.</p>
+      <p>That is not a delivery problem. That is a memory problem, and it is entirely avoidable.</p>
+      <p>I get every team I work with to keep a wall of done. Not a burndown. Not a backlog. A running, visible record of things that actually shipped — one line each, plain English, no jargon. "Fixed the export bug that was costing finance two hours a week." "Onboarded the new starter without losing a sprint." Small things and big things, side by side, because they all count.</p>
+      <p>The backlog only ever shows you what's left. It cannot show you what you've done, because that is not what it is for. A wall of done is evidence — proof, in writing, that the team is not just busy, it is moving, and here is exactly what moving looked like.</p>
+      <p>Put it somewhere everyone can see it. A physical wall if you have one. A pinned Slack channel if you don't. Add to it the moment something ships, not at the end of the sprint when half of it's already been forgotten.</p>
+      <p>The team that can point at a wall and say "we did that" argues less about whether they're doing enough. They've got the evidence right there.</p>
+    </div>
+    <p class="closer">What did your team ship this month that nobody's written down anywhere?</p>
+  </article>
+
+  <article class="post" id="post-9">
+    <div class="post-meta">
+      <div class="post-meta-left"><span class="slot-num">09 / 09</span><span class="pill review">Needs review</span></div>
+      <button class="copy-btn" data-copy="content-9">Copy content</button>
+    </div>
+    <h2 class="post-title">This month, I showed you the small things</h2>
+    <div class="excerpt-box">
+      <div class="excerpt-label"><span>Excerpt for site index</span><button class="copy-btn" data-copy="excerpt-9">Copy excerpt</button></div>
+      <p>None of what I gave you this month was big — a board read right to left, an assumption said out loud, a wall nobody's built yet. Eight small things, one per post, each one small enough to try this week. Pick one and try it. What changed?</p>
+    </div>
+    <div class="post-body">
+      <p>None of what I gave you this month was big.</p>
+      <p>A board read right to left. A conversation before you start, not after. A card that actually invites a question. A ticket that's sat there so long nobody's asking why. An argument nobody was having. An assumption nobody said out loud. A number that only means something once it moves. A wall nobody's built yet.</p>
+      <p>Small things. Every one of them. Here they are, in order:</p>
+      <p><a href="https://blog.simeonherbert.com/board-shows-flow-right-to-left">Board shows flow, right to left</a> — read your stand-up right to left, not left to right.</p>
+      <p><a href="https://blog.simeonherbert.com/start-with-the-end-in-mind">Start with the end in mind</a> — agree what good looks like before anyone starts.</p>
+      <p><a href="https://blog.simeonherbert.com/write-cards-and-stories-informatively">Write cards and stories informatively</a> — a card is an invitation to a conversation, not a title.</p>
+      <p><a href="https://blog.simeonherbert.com/smelly-tickets">Smelly tickets</a> — the ones nobody's asking why about anymore.</p>
+      <p><a href="https://blog.simeonherbert.com/real-communication-in-the-room-pair-working">Real communication in the room, pair working</a> — say what you actually think, out loud.</p>
+      <p><a href="https://blog.simeonherbert.com/management-by-apathy-proceed-until-apprehended">Management by apathy, proceed until apprehended</a> — lead with an assumption, not a decision.</p>
+      <p><a href="https://blog.simeonherbert.com/better-this-week-than-last">Better this week than last</a> — the number doesn't matter. The movement does.</p>
+      <p><a href="https://blog.simeonherbert.com/wall-of-done">Wall of Done</a> — write down what you actually shipped.</p>
+      <p>None of them need a programme. None of them need a budget line. Pick one. Try it this week.</p>
+    </div>
+    <p class="closer">What changed?</p>
+  </article>
+
+  <footer class="note">
+    Working draft, not yet published. Order confirmed: 1–8 above, then the wrap-up. Each post has a <strong>Copy content</strong> button (for the CMS's Content/Markdown field) and a <strong>Copy excerpt</strong> button (for the site's blog index) — both copy plain text straight to your clipboard with paragraph breaks intact, so nothing runs together the way it did selecting text by hand. Source file: <code>~/Desktop/september-2026-blog-posts.md</code> — tell me what to change and I'll update it there.
+  </footer>
+
+</div>
+
+<script type="application/json" id="data-content-1">"I don't allow tickets to move backwards.\n\nIf a ticket's stuck — someone finds a problem in testing, a dependency wasn't ready, whatever it is — I don't send it back a column. I block it, then start a new one. The blocked ticket doesn't move. It sits exactly where it stalled until the new ticket catches up to that same point — then the two merge back into one, and move on together. Tickets go one direction. Left to right. Never the other way.\n\nThat's only possible if your board actually shows the flow of work. Most boards don't. \"To do, doing, done\" tells you almost nothing — work sits in \"doing\" whether it's one day in or three weeks stuck, and nobody can tell the difference from the board alone.\n\nWhat you actually need is your real flow, visible. Something's been looked at and decided on — that's a column. It's next up — that's a column. Maybe it goes through a three amigos check before a developer even starts. Once the developer's finished coding, that needs its own column too — not because coding and testing are the same job, but because there's always a lag between one finishing and the next starting. That lag is a queue. If you don't show it, you can't see it, and if you can't see it, you can't ask why it's sitting there.\n\nHere's what that changes about your stand-up. Most stand-ups start on the left — what's new, what's just been picked up. Start on the right instead. Look at what's closest to done first, and ask: can I move this any further right today? Then work backwards, one column at a time, asking the same question. You're reading the board right to left. You're still only ever moving tickets left to right.\n\nThat's the whole discipline. Not \"what did you do yesterday.\" Just: what's stopping this ticket, sitting right there, from moving one column closer to done?\n\nNext stand-up, start on the right. What's the closest-to-done thing on your board, and what's actually stopping it moving today?"</script>
+<script type="application/json" id="data-excerpt-1">"I don't allow tickets to move backwards. If something's stuck, I block it and start a new one — the two only merge back together once the new ticket catches up to where the old one stalled. Most boards can't tell the difference between one day stuck and three weeks stuck. Yours needs to."</script>
+
+<script type="application/json" id="data-content-2">"\"That's not what I asked for.\"\n\nI hear that most after work that took two weeks, not two minutes. The ticket looked fine when it was written. Nobody thought to ask what \"finished\" actually meant until the finished thing showed up, and it wasn't that.\n\nI always start with the end in mind — not as a slogan, as a real question, asked before anyone opens a laptop. What does good look like here? Where do we actually need to get to? And when we get there, how will we know, for certain, that it's the place we were supposed to arrive?\n\nNone of that works if it only lives in one person's head. Everyone building it needs to agree the same answer — what good looks like, how you'll get there, how you'll test it once you think you have. Skip that conversation, and you're not delivering towards anything. You're building something and hoping it happens to match whatever picture somebody was carrying around.\n\nThat conversation has a name — three amigos. Strip away the jargon and it's just three people: the one who wants it, the one who can provide it, and the one who will validate it, agreeing out loud, before anyone starts, on what \"good\" actually looks like. Three points of view catch what one person alone never will.\n\nGet that agreed up front and the whole piece of work changes shape. You're not writing a story and hoping it lands somewhere useful — you're writing towards a target everyone can already see. That's what done done actually means. Not \"we built it.\" \"We know it's good, because we agreed what good looked like before we ever picked up a pen.\"\n\nBefore your next piece of work starts, ask the question out loud, in the room, where everyone can hear it: what does this need to look like when it's done?"</script>
+<script type="application/json" id="data-excerpt-2">"\"That's not what I asked for.\" I hear that most after work that took two weeks, not two minutes — nobody ever agreed what \"finished\" looked like before it started. Start with the end in mind, out loud, before anyone opens a laptop. What does this need to look like when it's done?"</script>
+
+<script type="application/json" id="data-content-3">"\"Upgrade the import feature.\"\n\nThat was the whole ticket. No context, no reason, nothing to talk about.\n\nA card isn't meant to be war and peace. It's an invitation to a conversation, not a spec. But \"upgrade the import feature\" isn't an invitation to anything — there's nothing there to respond to.\n\nHere's what a card actually needs: enough for someone to read it and ask real questions back. What's the plan here? What's the right UI? Does the back end need to handle this fast, or is a batch job fine? Does this need to survive load, or is it low-stakes? None of that is possible from a title alone.\n\nStart with why. Every story has a point, and if the card doesn't say what it is, the conversation starts from zero every single time. The canonical format — as a [someone], I want [something], in order to [outcome] — isn't sacred, and plenty of good technical teams skip it entirely. But it's a genuinely useful crutch when you're stuck, because it forces you to write the why down, not just the what.\n\nI'm not asking for a specification written up front. I'm asking for enough that when I pick up a ticket at stand-up, I can actually ask \"where are we with this, can we get it over the line\" — instead of reading three words and having no idea what I'm even looking at.\n\nWhat's the last card you wrote that someone else would need to ask you what it even meant?"</script>
+<script type="application/json" id="data-excerpt-3">"\"Upgrade the import feature.\" That was the whole ticket — no context, no reason, nothing to talk about. A card isn't a spec, but it needs to be enough of an invitation that someone can ask a real question back. What's the last card you wrote that someone else would need to ask you what it even meant?"</script>
+
+<script type="application/json" id="data-content-4">"\"Why's that ticket still there?\"\n\n\"We're waiting on something.\"\n\n\"Waiting on what?\"\n\nSilence. Nobody in the room actually knows. There's supposed to be an owner. Maybe there is, and they've quietly decided there's nothing they can do. Maybe there isn't, and everyone assumed it was someone else's.\n\nI call these smelly tickets. They sit there long enough to throw off every metric you've got, and the smell is always the same: nobody's asking why anymore.\n\nSome of them hide in plain sight. Jira will show you little dots counting the days something's sat in the same column, if you've turned that on. Flow Lens will flag it in the cycle time — blocked, or just late. But plenty of smelly tickets aren't even marked as blocked. They just sit there, unchallenged, because nobody's looking at them regularly enough to notice the smell.\n\nHere's the question that actually moves them. Not \"why can't we finish this\" — \"what could we do?\" Could you split it in half, park the hard part back in the backlog for when it's actually playable, and finish and demonstrate the half that's real? Half the time, a smelly ticket is telling you the story was too big to begin with, and splitting it is the whole fix.\n\nThe ticket isn't the problem. It's a symptom. What you're actually looking for is one honest answer to: what's possible right now, that isn't happening?\n\nIs there a ticket on your board that's been sitting there so long nobody's asking why anymore? Go and ask."</script>
+<script type="application/json" id="data-excerpt-4">"\"Why's that ticket still there?\" \"We're waiting on something.\" \"Waiting on what?\" Silence. I call these smelly tickets — they sit there long enough to throw off every metric you've got, and the smell is always the same: nobody's asking why anymore."</script>
+
+<script type="application/json" id="data-content-5">"\"We don't like arguments,\" people tell me.\n\nI love arguments. An argument means someone cares enough to say what they actually think, out loud, in the room. If you won't argue about something you believe is true, that tells me one of three things: you don't care, you've lost your passion, or someone's beaten it out of you. None of those are good.\n\nThat's what I mean by real communication in the room. Not politeness. Not everyone nodding along. People actually challenging each other — \"actually, buddy, I don't think you're right, can we talk about that?\" Not because I'm certain I'm correct. Just because I want to talk it through, out loud, with someone who might tell me I'm wrong.\n\nPair working is the same thing in miniature. \"This is what I did, what do you think?\" That's it. That's the whole discipline. And if there's genuinely nobody free to pair with, talk to a rubber duck. I mean that literally — sit a rubber duck on your desk and explain your work to it out loud. It won't answer you (usually). What it does is force you to say the words instead of just thinking them, and most of us are embarrassed enough by talking out loud that we skip straight to typing. Say it anyway. You become your own rubber duck the moment you hear yourself explain something badly.\n\nPeople are pairing with AI a lot now. Fine for the technical side. But if you're writing something and want a real feel for whether it lands, a conversation with a person beats it every time. AI won't argue with you the way a colleague who actually cares will.\n\nWhat I want in the room is noise. Bubbling, heated, \"hang on, I don't think that's right\" conversation — because that's what people sound like when they still care about the answer.\n\nWhat's the last thing at work you avoided arguing about, even though you didn't actually agree?"</script>
+<script type="application/json" id="data-excerpt-5">"\"We don't like arguments,\" people tell me. I love arguments — they mean someone cares enough to say what they actually think, out loud, in the room. If there's genuinely nobody free to pair with, talk to a rubber duck. I mean that literally."</script>
+
+<script type="application/json" id="data-content-6">"\"It's not my job.\"\n\nThat's usually where it starts. Something's stuck, nobody's clearly responsible for it, and the easiest thing in the world is to leave it exactly where it is.\n\nI call that management by apathy, and I don't mean it unkindly. What I mean is the opposite of my favourite word: deliberate. Apathy says \"not my job, not my problem, I'll leave it.\" Deliberate says \"it might not be my job — but it's sitting there now, so I'm going to go and find out what it actually is.\"\n\nNo decision is the worst decision you can make. Sitting there, unsure, hoping the right answer turns up on its own — it won't. It's not going to jump out and catch you. It just sits there. That's exactly how a smelly ticket gets made.\n\nSo how do you actually make a deliberate decision when you're not sure? You don't start with the decision. You start with your assumptions. Write down what you think is true. Then make the call based on that. If the assumption's wrong — and it might be — you've got something to talk about. You can say \"here's what I thought was true, here's the decision I made because of it.\" When someone tells you you're wrong, you get a much better question out of it: what didn't I know? What communication never reached me?\n\nThat's the real value of leading with assumptions instead of decisions. Walk around a team with a decision and ask \"was this right?\" and most people freeze — \"I don't know, why would I have made that call?\" Walk around with an assumption instead — \"I think this is true\" — and people relax. \"Yeah, that's right.\" Or: \"no, actually, it's something else.\" An assumption invites correction. A decision invites defence. An assumption lets people be curious about whether it's true. A decision forces them to defend whether it was right.\n\nThat's what deliberate really means. Not being certain. Being willing to say what you think is true, out loud, so someone can tell you if you're wrong before it costs you anything.\n\nWhat's something you're currently assuming is true at work — that you've never actually said out loud to check?"</script>
+<script type="application/json" id="data-excerpt-6">"\"It's not my job.\" That's usually where it starts — something's stuck, nobody's responsible, and the easiest thing in the world is to leave it exactly where it is. I call that management by apathy. The opposite of it is my favourite word: deliberate."</script>
+
+<script type="application/json" id="data-content-7">"\"Are we getting better?\"\n\nAsk a delivery lead that question and watch what happens. Story points. A velocity chart. A number that went up, or a number that went down, and a story invented afterwards to explain it either way.\n\nVelocity lies. Not on purpose — it lies because story size moves around every single week. One team writes big stories in a slow week and small stories in a fast one, and the chart says the opposite of what actually happened. You cannot compare eight points last week to eight points this week and learn anything at all.\n\nSo what number would actually tell you the truth?\n\nNot the number itself. The movement. Something that means nothing sitting still and everything moving. \"We finished twelve things\" is not honest on its own — you have no idea if twelve is good. \"We finished twelve things, and it took less time than the twelve things we finished last week\" — that is honest. That is the whole difference.\n\nCycle time gets you closer than velocity ever will, because it measures the thing you actually care about — how long something takes from start to finish — not a size someone guessed at in planning. Track the median cycle time this week. Track it again next week. You are not asking \"is twelve days good.\" You are asking \"is twelve days better than fourteen.\" That is a question with a real answer.\n\nI am not asking you to build a dashboard. I've already built one — flow-lens.co.uk turns a Kanban export into the cycle time trend without you touching a spreadsheet. What I am asking you to do is decide what's important to you — which numbers are actually worth watching — then ignore what any single one of them means in isolation, and only ever ask whether it moved the right way since last time you looked.\n\nWhat's the one number your team already tracks that you have never once compared to last week's?"</script>
+<script type="application/json" id="data-excerpt-7">"\"Are we getting better?\" Ask a delivery lead that and watch what happens — story points, a velocity chart, a number invented afterwards to explain itself either way. Velocity lies, because story size moves around every week. What's the one number your team already tracks that you've never once compared to last week's?"</script>
+
+<script type="application/json" id="data-content-8">"Ask a team what they achieved this month and watch the room go quiet.\n\nNot because nothing happened. Because nobody wrote any of it down. Weeks of real work, shipped and working, and not one person in the room can name three things without stopping to think. You lose more than the memory — you lose the ability to celebrate it, and to show it to anyone outside your own team.\n\nThat is not a delivery problem. That is a memory problem, and it is entirely avoidable.\n\nI get every team I work with to keep a wall of done. Not a burndown. Not a backlog. A running, visible record of things that actually shipped — one line each, plain English, no jargon. \"Fixed the export bug that was costing finance two hours a week.\" \"Onboarded the new starter without losing a sprint.\" Small things and big things, side by side, because they all count.\n\nThe backlog only ever shows you what's left. It cannot show you what you've done, because that is not what it is for. A wall of done is evidence — proof, in writing, that the team is not just busy, it is moving, and here is exactly what moving looked like.\n\nPut it somewhere everyone can see it. A physical wall if you have one. A pinned Slack channel if you don't. Add to it the moment something ships, not at the end of the sprint when half of it's already been forgotten.\n\nThe team that can point at a wall and say \"we did that\" argues less about whether they're doing enough. They've got the evidence right there.\n\nWhat did your team ship this month that nobody's written down anywhere?"</script>
+<script type="application/json" id="data-excerpt-8">"Ask a team what they achieved this month and watch the room go quiet — not because nothing happened, but because nobody wrote any of it down. I get every team I work with to keep a wall of done: a running, visible record of what actually shipped. What did your team ship this month that nobody's written down anywhere?"</script>
+
+<script type="application/json" id="data-content-9">"None of what I gave you this month was big.\n\nA board read right to left. A conversation before you start, not after. A card that actually invites a question. A ticket that's sat there so long nobody's asking why. An argument nobody was having. An assumption nobody said out loud. A number that only means something once it moves. A wall nobody's built yet.\n\nSmall things. Every one of them. Here they are, in order:\n\n[Board shows flow, right to left](https://blog.simeonherbert.com/board-shows-flow-right-to-left) — read your stand-up right to left, not left to right.\n\n[Start with the end in mind](https://blog.simeonherbert.com/start-with-the-end-in-mind) — agree what good looks like before anyone starts.\n\n[Write cards and stories informatively](https://blog.simeonherbert.com/write-cards-and-stories-informatively) — a card is an invitation to a conversation, not a title.\n\n[Smelly tickets](https://blog.simeonherbert.com/smelly-tickets) — the ones nobody's asking why about anymore.\n\n[Real communication in the room, pair working](https://blog.simeonherbert.com/real-communication-in-the-room-pair-working) — say what you actually think, out loud.\n\n[Management by apathy, proceed until apprehended](https://blog.simeonherbert.com/management-by-apathy-proceed-until-apprehended) — lead with an assumption, not a decision.\n\n[Better this week than last](https://blog.simeonherbert.com/better-this-week-than-last) — the number doesn't matter. The movement does.\n\n[Wall of Done](https://blog.simeonherbert.com/wall-of-done) — write down what you actually shipped.\n\nNone of them need a programme. None of them need a budget line. Pick one. Try it this week.\n\nWhat changed?"</script>
+<script type="application/json" id="data-excerpt-9">"None of what I gave you this month was big — a board read right to left, an assumption said out loud, a wall nobody's built yet. Eight small things, one per post, each one small enough to try this week. Pick one and try it. What changed?"</script>
+
+<script>
+  document.querySelectorAll('.copy-btn[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var dataEl = document.getElementById('data-' + btn.dataset.copy);
+      if (!dataEl) return;
+      var text;
+      try { text = JSON.parse(dataEl.textContent); } catch (e) { return; }
+
+      function flash() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1400);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(flash).catch(function () { fallbackCopy(text, flash); });
+      } else {
+        fallbackCopy(text, flash);
+      }
+    });
+  });
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    done();
+  }
+</script>
