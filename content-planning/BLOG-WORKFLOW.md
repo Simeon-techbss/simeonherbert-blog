@@ -58,10 +58,18 @@ Selecting and copying text out of a rendered HTML page does not reliably preserv
 
 ## Driving traffic and engagement — experiment log
 
-Empty so far for this blog specifically — fill in as things get tried.
+**Prerequisite, not yet done: the blog has no analytics at all** (checked `app/` and `lib/` — no Vercel Analytics, Plausible, GA, anything). Without it, the "Result" column below can't be filled in honestly. Add basic analytics before running any experiment that needs a before/after comparison — Vercel Analytics is the obvious first choice since the site's already deployed there (one import + one component, free tier, no cookie banner needed). Flag this to Simeon rather than assuming it's sorted.
+
+Known context from Simeon's other projects, for background: a 3x-week automated LinkedIn posting push on Lenjusu in June 2026 failed hard — traffic dropped 94%, and the few signups that landed took no action — and was killed in July 2026. And a paid LinkedIn engagement service (linkedia.org — fake followers/reactions/comments) was considered and rejected in August 2026: against LinkedIn's platform-manipulation policy, and buys a number that doesn't read the blog or hire Simeon. Both point the same way: volume and fake signals aren't the lever here.
+
+**Legitimate options worth testing, one at a time, not yet tried:**
+
+- **Native LinkedIn posts, not link-shares.** LinkedIn's algorithm suppresses posts that link off-platform. Post the hook/opening paragraph natively as a text post, put the blog link in the first comment instead of the post body, and compare reach against the current Buffer link-share approach.
+- **Reply to every comment, fast.** Early engagement (first 60–90 minutes) is what LinkedIn's algorithm weights most for further reach. Simeon replying personally to comments in that window matters more than posting volume.
+- **Comment on other people's posts in the same niche**, not just publish his own — a known organic-reach lever, and lower effort than writing new content. The `network-reach` skill already exists for drafting outreach; a similar habit for thoughtful comments on other agile/delivery voices' posts could be worth trying.
+- **A/B the posting time.** The CMS already has a pinned "Buffer at 10am" slot — try a second time slot (e.g. lunchtime or early evening, when people scroll on the way home) for a few posts and compare.
+- **Internal linking between posts.** The wrap-up post already links back to the month's posts — consider also linking sideways between related posts as they're published (e.g. "Smelly tickets" linking to "Management by apathy" mid-post), which helps both readers and search.
 
 | Date | What we tried | Result | Keep or drop |
 |---|---|---|---|
 | | | | |
-
-Known context from Simeon's other projects, for background (not yet tied to a specific blog experiment here): a 3x-week automated LinkedIn posting push on Lenjusu in June 2026 failed hard — traffic dropped 94%, and the few signups that landed took no action — and was killed in July 2026. Worth weighing before proposing similar volume or automation tactics on this blog.
