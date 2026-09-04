@@ -4,6 +4,8 @@ Reference document — read this at the start of planning each new month's posts
 
 ## The workflow
 
+0. **Before agreeing anything: pull the last month's real Buffer performance.** Ask Simeon for the latest `buffer-insights-*.md` export (or check via the `buffer` MCP if it's ever granted the `insights:read` scope) and actually look at what landed and what didn't — reactions, comments, impressions, per post — before proposing a theme or topics. This step got skipped going into September, and the whole month's series (a structured coaching-topic format) went out without anyone checking it against the one clear signal already sitting in the data: personal, first-person "this happened to me" posts (e.g. the 24 Jul job-market post, 23 reactions/3,865 impressions) heavily outperform the structured monthly series, which had already been declining for weeks before September started. Don't let that happen again — this step is not optional, and it's not the same as fixing voice/tone later. Editing sentences after the fact doesn't recover a month spent on the wrong format.
+
 1. **Agree the theme.** Talk it through with Simeon first. Recent themes: July = where to look first, August = don't do transformation theatre, September = the small things that actually move a team. Themes build on each other month to month — check what the last 2–3 months covered before proposing a new one, so it connects rather than repeats.
 
 2. **Suggest topics — and write them down immediately.** Simeon has been burned before by ideas discussed only in chat and lost when the session ended. The moment topics are agreed, they go into that month's working file (see "Where things live" below), even in skeleton form. Never let a topic idea exist only in scrollback.
