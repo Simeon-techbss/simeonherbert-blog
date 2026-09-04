@@ -72,4 +72,6 @@ Known context from Simeon's other projects, for background: a 3x-week automated 
 
 | Date | What we tried | Result | Keep or drop |
 |---|---|---|---|
-| | | | |
+| 1–3 Sep 2026 | Baseline (no experiment yet) — posts 1 and 2 of September, both with the "Originally published on my blog" link inline in the post body | ~95-100 impressions each, 0 reactions, 0 comments on both. Total impressions/reach down ~32% vs prior week. Profile views spiked on both post days (78 and 108, vs 7-18 baseline) — posts are getting seen and driving profile clicks, just no visible reactions. Source: Buffer insights export, `buffer-insights-2026-08-29_to_2026-09-04.md` | Baseline — testing link-in-first-comment next to compare |
+
+Note on getting real numbers: the Buffer MCP connection here doesn't have the `insights:read` scope, so Claude can't pull metrics directly — Simeon downloads the insights export from Buffer himself (markdown file, e.g. `~/Downloads/buffer-insights-<range>.md`) and shares it when checking how a post did.
