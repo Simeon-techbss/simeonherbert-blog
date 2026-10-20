@@ -2,6 +2,7 @@ import { getPost, getAllPosts, checkPostExists } from '@/lib/blog'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { marked } from 'marked'
+import CopyLink from '../components/CopyLink'
 
 export const revalidate = 3600
 export const dynamicParams = true
@@ -87,7 +88,10 @@ export default async function BlogPost(
 
   return (
     <div className="article-wrap">
-      <a href="/" className="back-link">← Back to blog</a>
+      <div className="article-topbar">
+        <a href="/" className="back-link">← Back to blog</a>
+        <CopyLink url={`https://blog.simeonherbert.com/${post.slug}`} />
+      </div>
 
       <p className="article-meta">
         <span className="article-meta-date">{formatDate(post.published_date)}</span>

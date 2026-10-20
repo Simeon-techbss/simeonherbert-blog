@@ -226,6 +226,35 @@ main { flex: 1; }
 
 .back-link:hover { color: var(--accent); }
 
+.article-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.article-topbar .back-link { margin-bottom: 0; }
+
+.copy-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.copy-link:hover { color: var(--accent); }
+
 .article-meta {
   font-family: var(--sans);
   font-size: 0.78rem;
